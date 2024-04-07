@@ -59,7 +59,7 @@ class MainActivity : ComponentActivity() {
 }
 
 enum class NavPath {
-    Morning, Afternoon, Evening
+    Start, Morning, Afternoon, Evening
 }
 
 @Composable
@@ -76,13 +76,11 @@ fun ClinicLayout() {
                 .fillMaxWidth()
                 .height(40.dp)
                 .background(Color(0xff00E3E3)))
-
         Spacer(modifier = Modifier.height(12.dp))
         Text(text = "2024/03/29", fontSize = 16.sp)
         Spacer(modifier = Modifier.height(12.dp))
         ClinicOfButton()
         Spacer(modifier = Modifier.height(12.dp))
-
     }
 }
 
@@ -146,38 +144,13 @@ fun DoctorInfo(
             Text(text = "點擊查看",color = Color(0xff8E8E8E), fontSize = 12.sp, modifier = Modifier.padding(bottom = 8.dp))
         }
     }
-
 }
 
 @Composable
 fun ClinicOfButton() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = NavPath.Morning.name){
-        composable(NavPath.Morning.name){
-            MorningScreen(
-                onMorningScreenClick = { navController.navigate(NavPath.Morning.name) },
-                onAfternoonScreenClick = { navController.navigate(NavPath.Afternoon.name) },
-                onEveningScreenClick = { navController.navigate(NavPath.Evening.name) }
-            )
-        }
-        composable(NavPath.Afternoon.name){
-            AfternoonScreen(
-                onMorningScreenClick = { navController.navigate(NavPath.Morning.name) },
-                onAfternoonScreenClick = { navController.navigate(NavPath.Afternoon.name) },
-                onEveningScreenClick = { navController.navigate(NavPath.Evening.name) }
-            )
-        }
-        composable(NavPath.Evening.name){
-            EveningScreen(
-                onMorningScreenClick = { navController.navigate(NavPath.Morning.name) },
-                onAfternoonScreenClick = { navController.navigate(NavPath.Afternoon.name) },
-                onEveningScreenClick = { navController.navigate(NavPath.Evening.name) }
-            )
-        }
-
-    }
-    Row(modifier = Modifier.fillMaxWidth()) {
+        Row(modifier = Modifier.fillMaxWidth()) {
         Spacer(modifier = Modifier.width(16.dp))
         Button(
             onClick = { navController.navigate(NavPath.Morning.name) },
@@ -213,36 +186,76 @@ fun ClinicOfButton() {
         }
         Spacer(modifier = Modifier.width(16.dp))
     }
+
+    NavHost(navController = navController, startDestination = NavPath.Start.name){
+        composable(NavPath.Start.name){
+//            MorningScreen(
+//                onMorningScreenClick = { navController.navigate(NavPath.Morning.name) },
+//                onAfternoonScreenClick = { navController.navigate(NavPath.Afternoon.name) },
+//                onEveningScreenClick = { navController.navigate(NavPath.Evening.name) }
+//            )
+            StartScreenLayout()
+        }
+        composable(NavPath.Morning.name){
+//            MorningScreen(
+//                onMorningScreenClick = { navController.navigate(NavPath.Morning.name) },
+//                onAfternoonScreenClick = { navController.navigate(NavPath.Afternoon.name) },
+//                onEveningScreenClick = { navController.navigate(NavPath.Evening.name) }
+//            )
+            MorningScreenLayout()
+        }
+        composable(NavPath.Afternoon.name){
+//            AfternoonScreen(
+//                onMorningScreenClick = { navController.navigate(NavPath.Morning.name) },
+//                onAfternoonScreenClick = { navController.navigate(NavPath.Afternoon.name) },
+//                onEveningScreenClick = { navController.navigate(NavPath.Evening.name) }
+//            )
+            AfternoonScreenLayout()
+        }
+        composable(NavPath.Evening.name){
+//            EveningScreen(
+//                onMorningScreenClick = { navController.navigate(NavPath.Morning.name) },
+//                onAfternoonScreenClick = { navController.navigate(NavPath.Afternoon.name) },
+//                onEveningScreenClick = { navController.navigate(NavPath.Evening.name) }
+//            )
+            EveningScreenLayout()
+        }
+    }
 }
+
+
+//@Composable
+//fun MorningScreen(
+//    onMorningScreenClick : () -> Unit,
+//    onAfternoonScreenClick : () -> Unit,
+//    onEveningScreenClick : () -> Unit,
+//) {
+//    MorningScreenLayout()
+//}
+//
+//
+//@Composable
+//fun AfternoonScreen(
+//    onMorningScreenClick : () -> Unit,
+//    onAfternoonScreenClick : () -> Unit,
+//    onEveningScreenClick : () -> Unit,
+//) {
+//    AfternoonScreenLayout()
+//}
+//
+//@Composable
+//fun EveningScreen(
+//    onMorningScreenClick : () -> Unit,
+//    onAfternoonScreenClick : () -> Unit,
+//    onEveningScreenClick : () -> Unit,
+//) {
+//    EveningScreenLayout()
+//}
+
 
 @Composable
-fun MorningScreen(
-    onMorningScreenClick : () -> Unit,
-    onAfternoonScreenClick : () -> Unit,
-    onEveningScreenClick : () -> Unit,
-) {
-    MorningScreenLayout()
+fun StartScreenLayout() {
 }
-
-
-@Composable
-fun AfternoonScreen(
-    onMorningScreenClick : () -> Unit,
-    onAfternoonScreenClick : () -> Unit,
-    onEveningScreenClick : () -> Unit,
-) {
-    AfternoonScreenLayout()
-}
-
-@Composable
-fun EveningScreen(
-    onMorningScreenClick : () -> Unit,
-    onAfternoonScreenClick : () -> Unit,
-    onEveningScreenClick : () -> Unit,
-) {
-    EveningScreenLayout()
-}
-
 @Composable
 fun MorningScreenLayout() {
     Column {
